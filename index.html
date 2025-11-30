@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Generator dowodu</title>
+<style>
+body { font-family: Arial; max-width: 600px; margin: 40px auto; background: #f4f4f4; padding: 20px; border-radius: 12px; }
+input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid #ccc; font-size: 16px; }
+button { background: #4caf50; color: white; cursor: pointer; font-size: 17px; }
+button:hover { background: #43a047; }
+h2 { text-align: center; }
+</style>
+</head>
+<body>
 
+<h2>Generator dowodu</h2>
+
+<label>Imię:</label>
+<input id="imie" type="text" placeholder="MACIEJ">
+
+<label>Nazwisko:</label>
+<input id="nazwisko" type="text" placeholder="NOWACKI">
+
+<label>Data urodzenia (DD.MM.RRRR):</label>
+<input id="data" type="text" placeholder="25.05.2007">
+
+<label>PESEL:</label>
+<input id="pesel" type="text" placeholder="07252582412">
+
+<label>Link do zdjęcia (np. z Imgur):</label>
+<input id="foto" type="text" placeholder="https://i.imgur.com/idfoto.jpg">
+
+<button onclick="generate()">🎉 Generuj link</button>
+
+<h3>Wygenerowany link:</h3>
+<input id="out" type="text" readonly>
+
+<script>
+function generate() {
+    const imie = document.getElementById("imie").value.trim();
+    const nazwisko = document.getElementById("nazwisko").value.trim();
+    const data = document.getElementById("data").value.trim();
+    const pesel = document.getElementById("pesel").value.trim();
+    const foto = document.getElementById("foto").value.trim();
+
+    if (!imie || !nazwisko || !data || !pesel || !foto) {
+        alert("Wypełnij wszystkie pola!");
+        return;
+    }
+
+    const url =
+        `https://martnine.github.io/ninasora.github.io/dowodnowy.html` +
+        `?imie=${encodeURIComponent(imie)}` +
+        `&nazwisko=${encodeURIComponent(nazwisko)}` +
+        `&data=${encodeURIComponent(data)}` +
+        `&pesel=${encodeURIComponent(pesel)}` +
+        `&foto=${encodeURIComponent(foto)}`;
+
+    document.getElementById("out").value = url;
+}
+</script>
+
+</body>
+</html>
