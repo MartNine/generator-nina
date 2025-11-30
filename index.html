@@ -33,7 +33,6 @@ h2 {
     text-align: center; 
 }
 
-/* --- STYL DLA OSTRZEŻENIA (żółty box) --- */
 .warning-box {
     background: #fff3cd;
     border: 2px solid #ffca28;
@@ -53,11 +52,10 @@ h2 {
     background: #ffefb6;
 }
 
-/* --- STYL DLA INSTRUKCJI IMGURA (szary box) --- */
 .info-box {
-    background: #e0e0e0;               /* jasny szary */
-    border: 2px solid #b0b0b0;         /* ciemniejsza szara ramka */
-    color: #333;                       
+    background: #e0e0e0;
+    border: 2px solid #b0b0b0;
+    color: #333;
     padding: 18px 20px;
     border-radius: 8px;
     margin-bottom: 25px;
@@ -72,11 +70,29 @@ h2 {
 .info-box:hover {
     background: #d6d6d6;
 }
+
+/* --- NOWY STYL DLA PRZYCISKU KOPIOWANIA --- */
+#copyBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+#copyBtn:hover {
+    background-color: #43a047;
+}
 </style>
 </head>
 <body>
 
-<!-- ⚠️ OSTRZEŻENIE PRAWNE -->
 <div class="warning-box">
     <b>⚠️ WAŻNE OSTRZEŻENIE – OŚWIADCZENIE PRAWNE:</b><br><br>
     Ten generator dowodu osobistego ma charakter <b>wyłącznie edukacyjny i demonstracyjny</b>.
@@ -93,7 +109,6 @@ h2 {
     Użytkownik zobowiązuje się korzystać z narzędzia <b>wyłącznie w celach edukacyjnych</b>.
 </div>
 
-<!-- ℹ️ INSTRUKCJA IMGUR -->
 <div class="info-box">
     <b>ℹ️ Jak zdobyć link do zdjęcia z Imgura?</b><br><br>
     1. Wejdź na stronę: <b>https://imgur.com</b><br>
@@ -130,7 +145,11 @@ h2 {
 <button onclick="generate()">🎉 Generuj link</button>
 
 <h3>Wygenerowany link:</h3>
-<input id="out" type="text" readonly>
+<!-- ✨ WRAPPER Z POLA I PRZYCISKU -->
+<div style="display: flex; align-items: center;">
+    <input id="out" type="text" readonly style="flex: 1;">
+    <button id="copyBtn" title="Kopiuj link">📋</button>
+</div>
 
 <script>
 function generate() {
@@ -155,6 +174,18 @@ function generate() {
 
     document.getElementById("out").value = url;
 }
+
+// ✨ FUNKCJA KOPIOWANIA LINKU
+document.getElementById("copyBtn").addEventListener("click", function() {
+    const output = document.getElementById("out");
+    if (!output.value.trim()) {
+        alert("Brak linku do skopiowania!");
+        return;
+    }
+    navigator.clipboard.writeText(output.value)
+        .then(() => alert("Skopiowano do schowka!"))
+        .catch(() => alert("Błąd podczas kopiowania."));
+});
 </script>
 
 </body>
